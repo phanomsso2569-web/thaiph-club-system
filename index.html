@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชมรมสาธารณสุขแห่งประเทศไทย</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f4f7f5;
+            overflow-x: hidden;
+        }
+        
+        /* สไตล์การ์ด Wavy Design แบบพรีเมียม */
+        .card-wave {
+            position: relative;
+            background: #ffffff;
+            border: 4px solid #1e5a3e;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px -5px rgba(30, 90, 62, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-wave:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 30px -10px rgba(30, 90, 62, 0.2);
+            border-color: #10b981;
+        }
+        .card-wave::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40px;
+            background: #1e5a3e;
+            z-index: 1;
+        }
+        .card-wave::after {
+            content: "";
+            position: absolute;
+            top: 30px; left: 0; right: 0;
+            height: 25px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V120H0V56.44Z' fill='%231e5a3e'/%3E%3C/svg%3E");
+            background-size: cover;
+            z-index: 1;
+        }
+        .card-footer-wave {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 25px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86C253.47,67.75,177,60.14,109.19,73.17v46.83H1200V92.83Z' fill='%231e5a3e'/%3E%3C/svg%3E");
+            background-size: cover;
+            z-index: 1;
+        }
+
+        /* อนิเมชั่นเปลี่ยนหน้า */
+        .page-transition {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-page {
+            display: none !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e5a3e;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- ========================================== -->
+    <!-- หน้าหลัก (HOME PAGE) -->
+    <!-- ========================================== -->
+    <div id="homePage" class="page-transition flex flex-col justify-between min-h-screen">
+        <header class="py-10 px-4 text-center">
+            <div class="max-w-4xl mx-auto flex flex-col items-center">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center border-4 border-[#1e5a3e] shadow-xl mb-4 hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Ministry_of_Public_Health_Thailand_Logo.png" alt="Logo" class="w-20">
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-[#1e5a3e] tracking-tight">
+                    ชมรมสาธารณสุขแห่งประเทศไทย
+                </h1>
+                <div class="h-1.5 w-32 bg-emerald-500 rounded-full mt-3"></div>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-grow">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- การ์ดลงทะเบียน (คลิกแล้วไปหน้าย่อย) -->
+                <div onclick="navigateTo('regPage')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-clipboard-user text-3xl"></i>
+                        </div>
+                        <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">เปิดระบบ</span>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">ลงทะเบียน</h2>
+                        <p class="text-gray-500 text-sm mt-1">เข้าร่วมประชุมวิชาการ</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end">
+                        <span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e] shadow-sm">คลิกเข้าสู่ระบบ <i class="fa-solid fa-arrow-right ml-1 animate-pulse"></i></span>
+                    </div>
+                </div>
+
+                <!-- การ์ดอื่นๆ -->
+                <div onclick="handleExternalLink('academic')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-book-open text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">ผลงานวิชาการ</h2>
+                        <p class="text-gray-500 text-sm mt-1">คลังวิจัยและนวัตกรรม</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end"><span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e]">คลิก</span></div>
+                </div>
+
+                <div onclick="handleExternalLink('pr')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-bullhorn text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">สื่อประชาสัมพันธ์</h2>
+                        <p class="text-gray-500 text-sm mt-1">ข่าวสารและกิจกรรม</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end"><span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e]">คลิก</span></div>
+                </div>
+
+                <div onclick="handleExternalLink('docs')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-file-lines text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">เอกสารโครงการ</h2>
+                        <p class="text-gray-500 text-sm mt-1">ดาวน์โหลดเอกสารต่างๆ</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end"><span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e]">คลิก</span></div>
+                </div>
+
+                <div onclick="handleExternalLink('hotel')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-hotel text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">สถานที่จัดงาน</h2>
+                        <p class="text-gray-500 text-sm mt-1">ข้อมูลโรงแรมและที่พัก</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end"><span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e]">คลิก</span></div>
+                </div>
+
+                <div onclick="handleExternalLink('contact')" class="card-wave cursor-pointer group h-64 flex flex-col justify-between p-6">
+                    <div class="z-10 flex justify-between items-start">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-3 rounded-2xl border border-emerald-100 group-hover:bg-[#1e5a3e] group-hover:text-white transition-all">
+                            <i class="fa-solid fa-comments text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-2xl font-bold text-[#1e5a3e]">ติดต่อเรา</h2>
+                        <p class="text-gray-500 text-sm mt-1">ช่องทางสอบถามข้อมูล</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-end"><span class="bg-white border border-[#1e5a3e] px-4 py-1.5 rounded-full text-xs font-bold text-[#1e5a3e]">คลิก</span></div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="py-8 text-center text-gray-400 text-xs">
+            <p>© 2026 ชมรมสาธารณสุขแห่งประเทศไทย | ออกแบบสำหรับ Google Sites</p>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- หน้าเมนูย่อย: การลงทะเบียน (REGISTRATION MENU PAGE) -->
+    <!-- ========================================== -->
+    <div id="regPage" class="page-transition flex flex-col justify-between min-h-screen hidden-page">
+        <header class="py-10 px-4 text-center">
+            <div class="max-w-4xl mx-auto flex flex-col items-center">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center border-4 border-[#1e5a3e] shadow-xl mb-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Ministry_of_Public_Health_Thailand_Logo.png" alt="Logo" class="w-20">
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-[#1e5a3e] tracking-tight">
+                    การลงทะเบียน
+                </h1>
+                <div class="h-1.5 w-24 bg-amber-400 rounded-full mt-3"></div>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow flex items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
+                
+                <!-- ปุ่มย่อย 1: ลงทะเบียนเข้าร่วมประชุม -->
+                <div onclick="navigateTo('formPage')" class="card-wave cursor-pointer group h-72 flex flex-col justify-between p-8 border-[#1e5a3e]">
+                    <div class="z-10 flex justify-center">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-5 rounded-3xl group-hover:bg-[#1e5a3e] group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-file-signature text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-3xl font-extrabold text-[#1e5a3e]">ลงทะเบียน</h2>
+                        <p class="text-emerald-700 font-semibold mt-1">กรอกฟอร์มลงทะเบียนเข้าร่วมประชุม</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-center">
+                        <span class="bg-white border-2 border-[#1e5a3e] px-6 py-1.5 rounded-full text-sm font-black text-[#1e5a3e] shadow">คลิกกรอกข้อมูล</span>
+                    </div>
+                </div>
+
+                <!-- ปุ่มย่อย 2: ตรวจสอบรายชื่อ (สลับไปยังหน้ารายงานผลภายในเว็บ) -->
+                <div onclick="navigateTo('listPage')" class="card-wave cursor-pointer group h-72 flex flex-col justify-between p-8 border-[#1e5a3e]">
+                    <div class="z-10 flex justify-center">
+                        <div class="bg-emerald-50 text-[#1e5a3e] p-5 rounded-3xl group-hover:bg-[#1e5a3e] group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-list-check text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="z-10 text-center">
+                        <h2 class="text-3xl font-extrabold text-[#1e5a3e]">ตรวจสอบรายชื่อ</h2>
+                        <p class="text-emerald-700 font-semibold mt-1">ดูรายชื่อผู้ลงทะเบียนสำเร็จ</p>
+                    </div>
+                    <div class="card-footer-wave"></div>
+                    <div class="z-10 flex justify-center">
+                        <span class="bg-white border-2 border-[#1e5a3e] px-6 py-1.5 rounded-full text-sm font-black text-[#1e5a3e] shadow">คลิกเพื่อตรวจสอบ</span>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ปุ่มกลับ -->
+        <div class="max-w-6xl mx-auto w-full px-6 py-10 flex justify-between items-center">
+            <span class="text-xs text-gray-400">ชมรมสาธารณสุขแห่งประเทศไทย</span>
+            <button onclick="navigateTo('homePage')" class="group flex items-center space-x-2 text-[#1e5a3e] hover:text-emerald-600 transition-colors">
+                <span class="text-lg font-bold border-b-2 border-transparent group-hover:border-[#1e5a3e]">กลับหน้าหลัก</span>
+                <div class="bg-[#1e5a3e] text-white p-2.5 rounded-full group-hover:bg-emerald-600 transition-all shadow-md">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- หน้าหลักฟอร์มลงทะเบียน (REGISTRATION FORM PAGE - 7 STEPS WIZARD) -->
+    <!-- ========================================== -->
+    <div id="formPage" class="page-transition flex flex-col justify-between min-h-screen hidden-page">
+        <header class="py-6 px-4">
+            <div class="max-w-4xl mx-auto flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center border-2 border-[#1e5a3e] shadow mb-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Ministry_of_Public_Health_Thailand_Logo.png" alt="Logo" class="w-12">
+                </div>
+                <h1 class="text-xl md:text-2xl font-extrabold text-[#1e5a3e] text-center">
+                    ระบบลงทะเบียนเข้าร่วมประชุมวิชาการ
+                </h1>
+                
+                <!-- แถบแสดงสถานะขั้นตอนการกรอกฟอร์ม -->
+                <div class="w-full max-w-xl mt-4 px-4">
+                    <div class="flex justify-between text-[11px] font-bold text-gray-500 mb-2">
+                        <span id="stepName">หน้า 1: ข้อมูลทั่วไป</span>
+                        <span id="stepProgressText">14%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar" class="bg-[#1e5a3e] h-2 transition-all duration-300" style="width: 14.3%"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-3xl mx-auto px-4 py-2 w-full flex-grow">
+            <div class="bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="bg-[#1e5a3e] h-3"></div>
+                
+                <form id="regForm" onsubmit="submitRegistration(event)" class="p-6 md:p-8 space-y-6">
+                    
+                    <!-- ส่วนที่ 1: ข้อมูลทั่วไป -->
+                    <div id="formStep1" class="space-y-4">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">1</span> 
+                            ข้อมูลทั่วไป
+                        </h3>
+                        
+                        <!-- 1. สังกัดหน่วยงาน -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">1. สังกัดหน่วยงาน <span class="text-red-500">*</span></label>
+                            <select id="organization_type" required onchange="toggleOtherInput(this, 'org_other_wrapper')" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                <option value="" disabled selected>เลือกสังกัดหน่วยงาน...</option>
+                                <option value="อบจ.">อบจ.</option>
+                                <option value="สำนักงานปลัดกระทรวงสาธารณสุข">สำนักงานปลัดกระทรวงสาธารณสุข</option>
+                                <option value="อื่นๆ">อื่นๆ</option>
+                            </select>
+                            <div id="org_other_wrapper" class="mt-2 hidden">
+                                <input type="text" id="org_other" placeholder="โปรดระบุสังกัดหน่วยงานอื่นๆ" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none">
+                            </div>
+                        </div>
+
+                        <!-- 2. เลขบัตรประจำตัวประชาชน -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-0.5">2. เลขบัตรประจำตัวประชาชน <span class="text-red-500">*</span></label>
+                            <p class="text-[11px] text-gray-500 mb-1.5 leading-tight">(ข้อมูลใช้เพื่อการลงทะเบียนผู้เข้าร่วมประชุมและประกอบการเก็บหน่วยกิตสภาฯเท่านั้น ไม่มีการเปิดเผยข้อมูลสู่สาธารณะ)</p>
+                            <input type="text" id="id_card" required maxlength="13" pattern="[0-9]{13}" placeholder="กรอกเฉพาะตัวเลข 13 หลัก" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                        </div>
+
+                        <!-- 3. เพศ & 4. คำนำหน้า -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1.5">3. เพศ <span class="text-red-500">*</span></label>
+                                <select id="gender" required class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                    <option value="" disabled selected>เลือกเพศ...</option>
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1.5">4. คำนำหน้า <span class="text-red-500">*</span></label>
+                                <select id="prefix" required class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                    <option value="" disabled selected>เลือกคำนำหน้า...</option>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นางสาว">นางสาว</option>
+                                    <option value="นาง">นาง</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 5. ชื่อ & 6. นามสกุล -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-0.5">5. ชื่อ <span class="text-red-500">*</span></label>
+                                <p class="text-[11px] text-gray-500 mb-1">(พิมพ์โดยไม่เว้นวรรคเพื่อความสะดวกในสืบค้น)</p>
+                                <input type="text" id="firstName" required placeholder="ชื่อภาษาไทย" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-0.5">6. นามสกุล <span class="text-red-500">*</span></label>
+                                <p class="text-[11px] text-gray-500 mb-1">(พิมพ์โดยไม่เว้นวรรคเพื่อความสะดวกในสืบค้น)</p>
+                                <input type="text" id="lastName" required placeholder="นามสกุลภาษาไทย" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- 7. ตำแหน่ง & 8. ระดับ -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">7. ตำแหน่ง <span class="text-red-500">*</span></label>
+                                <select id="position" required onchange="toggleOtherInput(this, 'pos_other_wrapper')" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                    <option value="" disabled selected>เลือกตำแหน่ง...</option>
+                                    <option value="นักวิชาการสาธารณสุข">นักวิชาการสาธารณสุข</option>
+                                    <option value="พยาบาลวิชาชีพ">พยาบาลวิชาชีพ</option>
+                                    <option value="เจ้าพนักงานสาธารณสุข">เจ้าพนักงานสาธารณสุข</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                                <div id="pos_other_wrapper" class="mt-2 hidden">
+                                    <input type="text" id="pos_other" placeholder="โปรดระบุตำแหน่งอื่นๆ" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">8. ระดับ <span class="text-red-500">*</span></label>
+                                <select id="level" required onchange="toggleOtherInput(this, 'lvl_other_wrapper')" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                    <option value="" disabled selected>เลือกระดับ...</option>
+                                    <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                                    <option value="ชำนาญการพิเศษ">ชำนาญการพิเศษ</option>
+                                    <option value="ชำนาญการ">ชำนาญการ</option>
+                                    <option value="ปฏิบัติการ">ปฏิบัติการ</option>
+                                    <option value="อาวุโส">อาวุโส</option>
+                                    <option value="ชำนาญงาน">ชำนาญงาน</option>
+                                    <option value="ปฏิบัติงาน">ปฏิบัติงาน</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                                <div id="lvl_other_wrapper" class="mt-2 hidden">
+                                    <input type="text" id="lvl_other" placeholder="โปรดระบุระดับอื่นๆ" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 9. เบอร์โทรศัพท์ & 10. ID Line -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-0.5">9. เบอร์โทรศัพท์ <span class="text-red-500">*</span></label>
+                                <p class="text-[11px] text-gray-500 mb-1.5">(ที่สามารถติดต่อได้จริง เช่น 0824567899)</p>
+                                <input type="tel" id="phone" required placeholder="08XXXXXXXX" pattern="[0-9]{9,10}" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1.5">10. ID Line <span class="text-red-500">*</span></label>
+                                <input type="text" id="line_id" required placeholder="ไอดีไลน์ หรือเบอร์โทรศัพท์ที่ใช้ไลน์" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- 11. อาหาร & 12. แพ้อาหาร -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">11. อาหาร <span class="text-red-500">*</span></label>
+                                <select id="dietary" required onchange="toggleOtherInput(this, 'diet_other_wrapper')" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                    <option value="" disabled selected>เลือกประเภทอาหาร...</option>
+                                    <option value="ทั่วไป">ทั่วไป</option>
+                                    <option value="อิสลาม">อิสลาม</option>
+                                    <option value="มังสวิรัติ">มังสวิรัติ</option>
+                                    <option value="อาหารเจ">อาหารเจ</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                                <div id="diet_other_wrapper" class="mt-2 hidden">
+                                    <input type="text" id="diet_other" placeholder="โปรดระบุข้อจำกัดด้านอาหารอื่นๆ" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1.5">12. อาหารที่แพ้</label>
+                                <input type="text" id="allergy" placeholder="ระบุสิ่งที่แพ้ (หากไม่มีให้เว้นว่างหรือพิมพ์ว่าไม่มี)" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 2: ข้อมูลสถานที่ทำงาน -->
+                    <div id="formStep2" class="space-y-4 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">2</span> 
+                            ข้อมูลสถานที่ทำงาน
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1.5">13. ชื่อสถานที่ทำงาน <span class="text-red-500">*</span></label>
+                            <input type="text" id="workplace_name" required placeholder="กรุณาใส่ชื่อเต็มหน่วยงาน..." class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-sm font-bold text-gray-700">14. ที่อยู่สถานที่ทำงาน <span class="text-red-500">*</span></label>
+                                <span id="geoLoaderStatus" class="text-xs text-emerald-600 font-bold flex items-center">
+                                    <i class="fa-solid fa-circle-notch animate-spin mr-1"></i> กำลังโหลดข้อมูลพื้นที่...
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1">เลือกจังหวัด</label>
+                                    <select id="work_province" required onchange="onProvinceChange(this.value)" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                        <option value="" disabled selected>เลือกจังหวัด...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1">เลือกอำเภอ/เขต</label>
+                                    <select id="work_amphure" required onchange="onAmphureChange(this.value)" disabled class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none disabled:opacity-50 transition-all">
+                                        <option value="" disabled selected>เลือกอำเภอ...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1">เลือกตำบล/แขวง</label>
+                                    <select id="work_tambon" required disabled class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none disabled:opacity-50 transition-all">
+                                        <option value="" disabled selected>เลือกตำบล...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1.5">15. เขตสุขภาพที่ <span class="text-red-500">*</span></label>
+                            <select id="health_zone" required class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                <option value="" disabled selected>เลือกเขตสุขภาพ...</option>
+                                <option value="เขตสุขภาพที่ 1">เขตสุขภาพที่ 1</option>
+                                <option value="เขตสุขภาพที่ 2">เขตสุขภาพที่ 2</option>
+                                <option value="เขตสุขภาพที่ 3">เขตสุขภาพที่ 3</option>
+                                <option value="เขตสุขภาพที่ 4">เขตสุขภาพที่ 4</option>
+                                <option value="เขตสุขภาพที่ 5">เขตสุขภาพที่ 5</option>
+                                <option value="เขตสุขภาพที่ 6">เขตสุขภาพที่ 6</option>
+                                <option value="เขตสุขภาพที่ 7">เขตสุขภาพที่ 7</option>
+                                <option value="เขตสุขภาพที่ 8">เขตสุขภาพที่ 8</option>
+                                <option value="เขตสุขภาพที่ 9">เขตสุขภาพที่ 9</option>
+                                <option value="เขตสุขภาพที่ 10">เขตสุขภาพที่ 10</option>
+                                <option value="เขตสุขภาพที่ 11">เขตสุขภาพที่ 11</option>
+                                <option value="เขตสุขภาพที่ 12">เขตสุขภาพที่ 12</option>
+                                <option value="เขตสุขภาพที่ 13">เขตสุขภาพที่ 13</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 3: ข้อมูลขอหน่วยกิตต่อใบประกอบ -->
+                    <div id="formStep3" class="space-y-4 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">3</span> 
+                            ข้อมูลขอหน่วยกิตต่อใบประกอบวิชาชีพ
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1.5">16. ความประสงค์การเก็บหน่วยกิต <span class="text-red-500">*</span></label>
+                            <select id="license_type" required onchange="toggleLicenseInputs(this.value)" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                <option value="" disabled selected>โปรดเลือกความประสงค์...</option>
+                                <option value="ผู้ประกอบวิชาชีพสภาการพยาบาล">ผู้ประกอบวิชาชีพสภาการพยาบาล</option>
+                                <option value="ผู้ประกอบวิชาชีพสาธารณสุขชุมชน">ผู้ประกอบวิชาชีพสาธารณสุขชุมชน</option>
+                                <option value="ไม่ประสงค์เก็บหน่วยกิต">ไม่ประสงค์เก็บหน่วยกิต</option>
+                            </select>
+                        </div>
+                        <div id="nursing_wrapper" class="hidden space-y-4 p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <p class="text-xs font-bold text-emerald-800"><i class="fa-solid fa-heart-pulse"></i> ข้อมูลผู้ประกอบวิชาชีพสภาการพยาบาล</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">4.1 เลขที่บัตรสมาชิก <span class="text-red-500">*</span></label>
+                                    <input type="text" id="nursing_member_id" placeholder="ระบุเลขที่บัตรสมาชิก" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">4.2 เลขที่ใบอนุญาตผู้ประกอบวิชาชีพฯ <span class="text-red-500">*</span></label>
+                                    <input type="text" id="nursing_license_id" placeholder="ระบุเลขที่ใบอนุญาตผู้ประกอบวิชาชีพ" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pubhealth_wrapper" class="hidden space-y-4 p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <p class="text-xs font-bold text-emerald-800"><i class="fa-solid fa-hand-holding-medical"></i> ข้อมูลผู้ประกอบวิชาชีพสาธารณสุขชุมชน</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">5.1 เลขที่ใบอนุญาตผู้ประกอบวิชาชีพฯ (ต้องมี สธช.) <span class="text-red-500">*</span></label>
+                                    <input type="text" id="pubhealth_license_id" placeholder="เช่น สธช. XX-XXXXX" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">5.2 เลขที่สมาชิกผู้ประกอบวิชาชีพฯ <span class="text-red-500">*</span></label>
+                                    <input type="text" id="pubhealth_member_id" placeholder="ระบุเลขที่สมาชิก" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 4: ของที่ระลึก -->
+                    <div id="formStep4" class="space-y-4 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">4</span> 
+                            ข้อมูลของที่ระลึกผู้ร่วมงาน
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1.5">19. ของที่ระลึกผู้ร่วมงาน (ขนาดไซส์เสื้อ) <span class="text-red-500">*</span></label>
+                            <select id="souvenir_size" required class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                <option value="" disabled selected>เลือกขนาดเสื้อยืดที่ต้องการ...</option>
+                                <option value="Ss">Ss</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="2XL">2XL</option>
+                                <option value="3XL">3XL</option>
+                                <option value="4XL">4XL</option>
+                                <option value="5XL">5XL</option>
+                                <option value="6XL">6XL</option>
+                                <option value="7XL">7XL</option>
+                            </select>
+                            <div class="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex items-start space-x-3 text-xs text-amber-800">
+                                <i class="fa-solid fa-circle-info text-amber-500 text-lg mt-0.5"></i>
+                                <div>
+                                    <p class="font-bold">หมายเหตุเกี่ยวกับของที่ระลึก:</p>
+                                    <p class="mt-0.5">กรุณาตรวจสอบตารางไซส์เพื่อความแม่นยำก่อนทำการเลือก</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 5: ข้อมูลเกษียณราชการ -->
+                    <div id="formStep5" class="space-y-4 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">5</span> 
+                            ข้อมูลเกษียณราชการในปี 2569
+                        </h3>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1.5">20. ท่านจะเกษียณราชการในปี 2569 หรือไม่ <span class="text-red-500">*</span></label>
+                            <select id="retire_status" required onchange="toggleRetireSection(this.value)" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                                <option value="" disabled selected>เลือกคำตอบ...</option>
+                                <option value="เกษียณราชการ">เกษียณราชการ</option>
+                                <option value="ไม่เกษียณราชการ">ไม่เกษียณราชการ</option>
+                            </select>
+                        </div>
+                        <div id="retire_fields_group" class="hidden space-y-4 p-5 bg-emerald-50/40 rounded-2xl border border-emerald-100">
+                            <p class="text-xs font-bold text-emerald-800"><i class="fa-solid fa-graduation-cap"></i> ข้อมูลเพิ่มเติมสำหรับจัดเตรียม VTR เชิดชูเกียมติ</p>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">21. ชื่อ-นามสกุลผู้เกษียณราชการ <span class="text-red-500">*</span></label>
+                                <input type="text" id="retire_name" placeholder="ระบุคำนำหน้าพร้อมชื่อ-นามสกุล" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">22. ตำแหน่งผู้เกษียณราชการ <span class="text-red-500">*</span></label>
+                                <input type="text" id="retire_position" placeholder="ระบุตำแหน่ง ณ ปัจจุบันก่อนเกษียณ" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">23. ชื่อสถานที่ทำงานผู้เกษียณราชการ <span class="text-red-500">*</span></label>
+                                <input type="text" id="retire_workplace" placeholder="ระบุชื่อเต็มและ ตำบล อำเภอ จังหวัด" class="w-full p-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">24. แนบไฟล์รูปผู้เกษียณราชการ <span class="text-red-500">*</span></label>
+                                <div class="flex flex-col items-center justify-center border-2 border-dashed border-emerald-300 rounded-2xl p-6 bg-white hover:bg-emerald-50/50 transition-colors cursor-pointer" onclick="document.getElementById('retire_files_input').click()">
+                                    <input type="file" id="retire_files_input" multiple accept="image/*" class="hidden" onchange="handleMultipleRetireImages(this.files)">
+                                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-[#1e5a3e] mb-2"></i>
+                                    <span class="text-xs font-bold text-gray-600">คลิกอัปโหลดรูปภาพผู้เกษียณ</span>
+                                </div>
+                                <div id="retire_images_preview" class="grid grid-cols-3 gap-3 mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ========================================== -->
+                    <!-- ส่วนที่ 6: ข้อมูลการชำระค่าลงทะเบียนและหลักฐาน -->
+                    <!-- ========================================== -->
+                    <div id="formStep6" class="space-y-4 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">6</span> 
+                            ข้อมูลการชำระเงินและหลักฐานการโอนเงิน
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div class="flex flex-col items-center">
+                                <div class="relative max-w-sm w-full bg-white rounded-3xl overflow-hidden shadow-lg border-4 border-emerald-100">
+                                    <img src="โอนเงินประชุมประเทศ.png" alt="ค่าลงทะเบียนประชุม" class="w-full object-cover animate-fade-in" onerror="this.onerror=null; this.nextElementSibling.classList.remove('hidden'); this.remove();">
+                                    <div class="hidden p-6 bg-gradient-to-br from-blue-50 to-indigo-50 text-center space-y-4">
+                                        <div class="bg-blue-600 text-white font-bold py-2 px-4 rounded-xl text-lg">ค่าลงทะเบียนประชุม</div>
+                                        <p class="text-3xl font-extrabold text-blue-900">ท่านละ 2,500 บาท</p>
+                                        <p class="text-sm">บัญชี: ธนาคารกรุงไทย<br>ชื่อบัญชี: ชมรมสาธารณสุขแห่งประเทศไทย<br>เลขที่บัญชี: 203-0-73477-2</p>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="copyBankAccount()" class="mt-3 bg-emerald-50 hover:bg-emerald-100 text-[#1e5a3e] font-bold text-xs py-2 px-4 rounded-full border border-emerald-200 transition-all flex items-center space-x-1 shadow-sm">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>คัดลอกเลขบัญชีโอนเงิน (203-0-73477-2)</span>
+                                </button>
+                            </div>
+                            <div class="space-y-4 p-5 bg-emerald-50/30 rounded-2xl border border-emerald-100">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">25. แนบไฟล์หลักฐานการโอนเงิน (สลิปโอนเงิน) <span class="text-red-500">*</span></label>
+                                    <div class="flex flex-col items-center justify-center border-2 border-dashed border-emerald-300 rounded-2xl p-6 bg-white hover:bg-emerald-50/50 transition-colors cursor-pointer" onclick="document.getElementById('payment_receipt_input').click()">
+                                        <input type="file" id="payment_receipt_input" accept="image/*" class="hidden" onchange="handleReceiptImage(this.files[0])">
+                                        <i class="fa-solid fa-receipt text-4xl text-[#1e5a3e] mb-2"></i>
+                                        <span class="text-xs font-bold text-gray-600">คลิกที่นี่เพื่อแนบสลิป</span>
+                                    </div>
+                                    <div id="receipt_preview_container" class="hidden flex justify-center mt-3">
+                                        <div class="relative w-40 border rounded-xl overflow-hidden shadow-md">
+                                            <img id="receipt_preview_img" src="#" alt="Receipt" class="w-full object-cover">
+                                            <button type="button" onclick="removeReceiptImage()" class="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full text-xs shadow-lg">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-600 mb-1">วันที่โอนเงินตามสลิป <span class="text-red-500">*</span></label>
+                                        <input type="date" id="payment_date" class="w-full p-3 border rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-600 mb-1">เวลาที่โอนเงินตามสลิป <span class="text-red-500">*</span></label>
+                                        <input type="time" id="payment_time" class="w-full p-3 border rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 7: LINE OPENCHAT -->
+                    <div id="formStep7" class="space-y-6 hidden">
+                        <h3 class="text-lg font-bold text-[#1e5a3e] border-b pb-2 mb-4 flex items-center">
+                            <span class="bg-[#1e5a3e] text-white rounded-full w-6 h-6 inline-flex items-center justify-center mr-2 text-xs">7</span> 
+                            ขอเชิญเข้าร่วม LINE OPENCHAT ของงานประชุม
+                        </h3>
+                        <div class="bg-gradient-to-br from-[#06c755]/10 to-emerald-50 p-6 rounded-3xl border border-[#06c755]/30 flex flex-col items-center text-center space-y-4">
+                            <div class="bg-[#06c755] text-white px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center space-x-1 shadow-sm">
+                                <i class="fab fa-line text-sm"></i>
+                                <span>LINE OPENCHAT</span>
+                            </div>
+                            <h4 class="text-lg font-black text-slate-800">โปรดสแกน QR Code หรือคลิกลิงก์ด้านล่างเพื่อเข้ากลุ่มหลัก</h4>
+                            <div class="relative max-w-[240px] w-full bg-white p-3 rounded-2xl shadow-md border-2 border-emerald-100 flex flex-col items-center">
+                                <img src="openchat.jpg" alt="LINE OpenChat QR Code" class="w-full aspect-square object-contain rounded-lg shadow-inner" onerror="this.onerror=null; this.nextElementSibling.classList.remove('hidden'); this.remove();">
+                                <div class="hidden flex flex-col items-center justify-center p-6 text-slate-400">
+                                    <i class="fa-solid fa-qrcode text-6xl mb-2"></i>
+                                    <p class="text-[10px]">ไม่สามารถโหลด QR Code ได้</p>
+                                </div>
+                                <span class="text-[11px] font-bold text-[#06c755] mt-2">สแกนภาพนี้เพื่อเข้าร่วม</span>
+                            </div>
+                            <a href="https://line.me/ti/g2/UYdmV310AiQZmTxSgTY65jqq8jdHRkrmWIYItw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="w-full max-w-sm py-3.5 px-6 bg-[#06c755] hover:bg-[#05b04c] text-white rounded-2xl font-bold text-sm shadow-md transition-all flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <span>คลิกตรงนี้ เพื่อเข้าร่วม LINE OpenChat</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- ปุ่มนำทาง -->
+                    <div class="pt-6 border-t flex flex-col sm:flex-row gap-4">
+                        <button type="button" id="btnPrev" onclick="moveStep(-1)" class="w-full sm:w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-angle-left"></i> <span>ย้อนกลับ</span>
+                        </button>
+                        <button type="button" id="btnNext" onclick="moveStep(1)" class="w-full sm:w-2/3 bg-[#1e5a3e] hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-1.5">
+                            <span>ถัดไป</span> <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                        <button type="submit" id="btnSubmitForm" class="w-full sm:w-2/3 bg-[#1e5a3e] hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2 hidden">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>ส่งข้อมูลลงทะเบียนเข้าระบบ</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class="py-6 text-center text-gray-400 text-xs">
+            <p>© 2026 ชมรมสาธารณสุขแห่งประเทศไทย | ข้อมูลจะถูกเก็บอย่างปลอดภัย</p>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- หน้าตรวจสอบรายชื่อ (REGISTRATION LIST CHECK PAGE) -->
+    <!-- ========================================== -->
+    <div id="listPage" class="page-transition flex flex-col justify-between min-h-screen hidden-page">
+        <header class="py-6 px-4">
+            <div class="max-w-6xl mx-auto flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center border-2 border-[#1e5a3e] shadow mb-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Ministry_of_Public_Health_Thailand_Logo.png" alt="Logo" class="w-12">
+                </div>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-[#1e5a3e] text-center">
+                    ตรวจสอบรายชื่อผู้ลงทะเบียนสำเร็จ
+                </h1>
+                <p class="text-gray-500 text-xs mt-1 text-center">รายชื่อจะดึงข้อมูลเชื่อมโยงจากฐานข้อมูลกลางผู้ลงทะเบียนโดยตรง</p>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-2 w-full flex-grow">
+            <!-- ส่วนการสรุปจำนวนสถิติและตัวกรอง -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-emerald-100 mb-6 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">ภาพรวมระบบข้อมูล</span>
+                        <h2 class="text-xl font-bold text-slate-800">สรุปข้อมูลผู้ลงทะเบียน</h2>
+                    </div>
+                    <!-- 1. จำนวนผู้ลงทะเบียนทั้งหมด -->
+                    <div class="bg-gradient-to-r from-[#1e5a3e] to-emerald-700 text-white px-6 py-3 rounded-2xl flex items-center space-x-3 shadow-md">
+                        <i class="fa-solid fa-users text-2xl"></i>
+                        <div>
+                            <p class="text-[10px] text-emerald-100 font-bold">ผู้ลงทะเบียนทั้งหมด</p>
+                            <p class="text-2xl font-black leading-none" id="totalRegCount">0 คน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ระบบสืบค้นและตัวกรองข้อมูล -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
+                    <!-- ค้นหาอิสระ -->
+                    <div class="relative md:col-span-2">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="searchBar" onkeyup="filterRegListTable()" placeholder="ค้นหาด้วย ชื่อ, นามสกุล, จังหวัด หรือ หน่วยงาน..." class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                    </div>
+
+                    <!-- ตัวกรอง: เขตสุขภาพ -->
+                    <div>
+                        <select id="filterHealthZone" onchange="filterRegListTable()" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            <option value="">ทั้งหมด (ทุกเขตสุขภาพ)</option>
+                            <option value="เขตสุขภาพที่ 1">เขตสุขภาพที่ 1</option>
+                            <option value="เขตสุขภาพที่ 2">เขตสุขภาพที่ 2</option>
+                            <option value="เขตสุขภาพที่ 3">เขตสุขภาพที่ 3</option>
+                            <option value="เขตสุขภาพที่ 4">เขตสุขภาพที่ 4</option>
+                            <option value="เขตสุขภาพที่ 5">เขตสุขภาพที่ 5</option>
+                            <option value="เขตสุขภาพที่ 6">เขตสุขภาพที่ 6</option>
+                            <option value="เขตสุขภาพที่ 7">เขตสุขภาพที่ 7</option>
+                            <option value="เขตสุขภาพที่ 8">เขตสุขภาพที่ 8</option>
+                            <option value="เขตสุขภาพที่ 9">เขตสุขภาพที่ 9</option>
+                            <option value="เขตสุขภาพที่ 10">เขตสุขภาพที่ 10</option>
+                            <option value="เขตสุขภาพที่ 11">เขตสุขภาพที่ 11</option>
+                            <option value="เขตสุขภาพที่ 12">เขตสุขภาพที่ 12</option>
+                            <option value="เขตสุขภาพที่ 13">เขตสุขภาพที่ 13</option>
+                        </select>
+                    </div>
+
+                    <!-- ตัวกรอง: สถานะชำระเงิน -->
+                    <div>
+                        <select id="filterPaymentStatus" onchange="filterRegListTable()" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all">
+                            <option value="">ทั้งหมด (ทุกสถานะชำระเงิน)</option>
+                            <option value="ตรวจสอบแล้ว">ชำระเงินเรียบร้อย</option>
+                            <option value="รอการตรวจสอบ">รอการตรวจสอบ</option>
+                            <option value="ยังไม่ชำระเงิน">ยังไม่ชำระเงิน</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- กล่องแสดงรายการแบบตารางสำหรับหน้าจอคอมพิวเตอร์ -->
+            <div class="bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-700 min-w-[900px]">
+                        <thead class="bg-[#1e5a3e] text-white text-xs uppercase font-extrabold">
+                            <tr>
+                                <th class="py-4 px-6 text-center w-16">ลำดับ</th>
+                                <th class="py-4 px-4 w-28">เขตสุขภาพ</th>
+                                <th class="py-4 px-4 w-32">จังหวัด</th>
+                                <th class="py-4 px-4">ชื่อ - นามสกุล</th>
+                                <th class="py-4 px-4">ตำแหน่ง</th>
+                                <th class="py-4 px-4 w-28">ระดับ</th>
+                                <th class="py-4 px-4">ชื่อสถานที่ทำงาน</th>
+                                <th class="py-4 px-4 text-center w-24">ขนาดเสื้อ</th>
+                                <th class="py-4 px-6 text-center w-36">สถานะการชำระเงิน</th>
+                            </tr>
+                        </thead>
+                        <tbody id="regListTableBody" class="divide-y divide-gray-100">
+                            <!-- แถวข้อมูลผู้สมัครจะแสดงผลที่นี่ผ่าน JavaScript -->
+                            <tr>
+                                <td colspan="9" class="py-12 text-center text-gray-400">
+                                    <i class="fa-solid fa-spinner animate-spin text-3xl mb-2 text-[#1e5a3e]"></i>
+                                    <p class="text-sm">กำลังเชื่อมต่อข้อมูลผู้สมัครสำเร็จจากฐานข้อมูลกลางสมาคม...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- ปุ่มกลับย้อนหน้า -->
+        <div class="max-w-6xl mx-auto w-full px-6 py-6 flex justify-between items-center mt-4">
+            <button onclick="fetchRegList()" class="bg-emerald-50 hover:bg-emerald-100 text-[#1e5a3e] border border-emerald-200 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
+                <i class="fa-solid fa-rotate"></i> <span>รีเฟรชอัปเดตข้อมูล</span>
+            </button>
+            <button onclick="navigateTo('regPage')" class="group flex items-center space-x-2 text-[#1e5a3e] hover:text-emerald-600 transition-colors">
+                <span class="text-lg font-bold border-b-2 border-transparent group-hover:border-[#1e5a3e]">ย้อนกลับหน้าลงทะเบียน</span>
+                <div class="bg-[#1e5a3e] text-white p-2.5 rounded-full group-hover:bg-emerald-600 transition-all shadow-md">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- ป๊อปอัปแจ้งเตือนลงทะเบียนสำเร็จ (SUCCESS MODAL) -->
+    <!-- ========================================== -->
+    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl p-8 text-center transform scale-95 transition-all">
+            <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-100">
+                <i class="fa-solid fa-circle-check text-emerald-500 text-5xl animate-bounce"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#1e5a3e] mb-2">ลงทะเบียนสำเร็จ!</h3>
+            <p class="text-gray-600 text-sm mb-6 leading-relaxed">
+                ระบบได้ส่งข้อมูลและรูปหลักฐานการโอนเงินทั้งหมดของคุณไปยังฐานข้อมูล Google Sheet เรียบร้อยแล้ว ขอขอบพระคุณสำหรับการเข้าร่วมประชุมวิชาการในครั้งนี้
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full bg-[#1e5a3e] hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition-all shadow-md">
+                กลับสู่หน้าหลัก
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- ระบบตั้งค่าลิงก์เชื่อมโยง (CONFIGURATOR) -->
+    <!-- ========================================== -->
+    <div class="fixed bottom-5 left-5 z-50">
+        <button onclick="toggleConfig()" class="bg-white/90 backdrop-blur text-gray-800 p-3 rounded-full shadow-lg border border-gray-200 hover:bg-white transition-all hover:rotate-45 duration-300">
+            <i class="fa-solid fa-gear text-xl text-gray-600"></i>
+        </button>
+    </div>
+
+    <div id="configModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[80] flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b">
+                <h3 class="text-xl font-bold text-[#1e5a3e]">
+                    <i class="fa-solid fa-link mr-1"></i> ตั้งค่าระบบและชีตข้อมูล
+                </h3>
+                <button onclick="toggleConfig()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- ตั้งค่า Google Sheets Web App -->
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                    <label class="text-xs font-bold text-emerald-800 flex items-center space-x-1">
+                        <i class="fa-solid fa-database"></i> 
+                        <span>1. URL เว็บแอปสำหรับรับข้อมูลฟอร์ม (Google Apps Script URL)</span>
+                    </label>
+                    <input type="text" id="url_reg_form" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2.5 border rounded-xl text-sm mt-1.5 outline-none focus:ring-2 focus:ring-emerald-500">
+                    <p class="text-[10px] text-gray-500 mt-1 leading-normal">
+                        *ข้อมูลผู้สมัครในหน้าเว็บนี้จะถูกจัดส่งไปบันทึกลงในชีตตามลิงก์ Apps Script นี้โดยตรง
+                    </p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-500">2. URL หน้ารายชื่อผู้ลงทะเบียน (ปุ่มขวาในหน้าลงทะเบียน)</label>
+                    <input type="text" id="url_reg_list" placeholder="ลิงก์ Google Sheets สำหรับดูรายชื่อ..." class="w-full p-2.5 border rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <hr>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-500">3. URL หน้าผลงานวิชาการ</label>
+                    <input type="text" id="url_academic" class="w-full p-2 border rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500">4. URL หน้าสื่อประชาสัมพันธ์</label>
+                    <input type="text" id="url_pr" class="w-full p-2 border rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+            </div>
+            <button onclick="saveConfig()" class="w-full bg-[#1e5a3e] text-white font-bold py-3.5 rounded-xl mt-6 hover:bg-emerald-700 transition-all shadow-md">
+                บันทึกการเชื่อมต่อระบบ
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // ฐานข้อมูลภูมิศาสตร์ไทย
+        let THAI_GEOGRAPHY = {};
+
+        // ฐานข้อมูลผู้สมัครทั้งหมดที่จะดึงมาจาก Google Sheet
+        let rawRegList = [];
+
+        // ลิงก์เก็บข้อมูลตั้งค่าระบบ
+        let links = {
+            reg_form: '', 
+            reg_list: '', 
+            academic: '',
+            pr: '',
+            docs: '',
+            hotel: '',
+            contact: ''
+        };
+
+        // ตัวแปรควบคุมสเต็ปฟอร์ม
+        let currentStep = 1;
+        const totalSteps = 7;
+        
+        // ตัวแปรเก็บไฟล์รูปภาพ
+        let retireImagesData = []; 
+        let receiptImageData = ""; 
+
+        window.onload = () => {
+            const saved = localStorage.getItem('ph_site_links_v3');
+            if(saved) {
+                links = JSON.parse(saved);
+                Object.keys(links).forEach(key => {
+                    const input = document.getElementById('url_' + key);
+                    if(input) input.value = links[key];
+                });
+            }
+            loadGeographyFromAPI();
+            fetchRegList(); // เรียกดึงข้อมูลรายชื่อทันที
+        };
+
+        // ฟังก์ชันดึงฐานข้อมูลภูมิศาสตร์ไทยครบถ้วนทั้ง 77 จังหวัดผ่าน API
+        async function loadGeographyFromAPI() {
+            const statusEl = document.getElementById('geoLoaderStatus');
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province_with_amphure_tambon.json');
+                const rawData = await response.json();
+                
+                rawData.forEach(prov => {
+                    const provName = prov.name_th;
+                    THAI_GEOGRAPHY[provName] = {};
+                    
+                    prov.amphure.forEach(amp => {
+                        const ampName = amp.name_th;
+                        THAI_GEOGRAPHY[provName][ampName] = amp.tambon.map(tam => tam.name_th);
+                    });
+                });
+
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500"></i> โหลดข้อมูลพื้นที่ 77 จังหวัดสำเร็จ!`;
+                setTimeout(() => statusEl.classList.add('opacity-0'), 3000);
+            } catch (err) {
+                console.error("Failed to fetch Thai Geography API, loading standard dataset fallback", err);
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-exclamation text-amber-500"></i> โหมดสำรองข้อมูลพื้นที่เปิดใช้งาน`;
+                THAI_GEOGRAPHY = {
+                    "กรุงเทพมหานคร": {
+                        "เขตพระนคร": ["พระบรมมหาราชวัง", "วังบูรพาภิรมย์", "วัดราชบพิธ", "สำราญราษฎร์", "ศาลเจ้าพ่อเสือ", "เสาชิงช้า"],
+                        "เขตดุสิต": ["ดุสิต", "วชิรพยาบาล", "สวนจิตรลดา", "สี่แยกมหานาค", "ถนนนครไชยศรี"],
+                        "เขตปทุมวัน": ["ปทุมวัน", "รองเมือง", "ลุมพินี", "วังใหม่"]
+                    },
+                    "ฉะเชิงเทรา": {
+                        "เมืองฉะเชิงเทรา": ["หน้าเมือง", "ท่าไข่", "บ้านใหม่", "โสธร", "บางพระ"],
+                        "พนมสารคาม": ["พนมสารคาม", "ท่าถ่าน", "บ้านซ่อง", "หนองยาว", "เกาะขนุน"],
+                        "บางคล้า": ["บางคล้า", "เสม็ดเหนือ", "เสม็ดใต้", "หัวไทร"]
+                    }
+                };
+            }
+            initGeographyDropdowns();
+        }
+
+        // เริ่มต้นสร้างหน้าต่างเลือกจังหวัด
+        function initGeographyDropdowns() {
+            const provSelect = document.getElementById('work_province');
+            provSelect.innerHTML = '<option value="" disabled selected>เลือกจังหวัด...</option>';
+            
+            const sortedProvinces = Object.keys(THAI_GEOGRAPHY).sort((a, b) => a.localeCompare(b, 'th'));
+            
+            sortedProvinces.forEach(province => {
+                const opt = document.createElement('option');
+                opt.value = province;
+                opt.text = province;
+                provSelect.add(opt);
+            });
+            
+            const otherOpt = document.createElement('option');
+            otherOpt.value = "อื่นๆ (ระบุในชื่อที่ทำงาน)";
+            otherOpt.text = "อื่นๆ (ระบุในชื่อที่ทำงาน)";
+            provSelect.add(otherOpt);
+        }
+
+        // เมื่อสลับจังหวัด
+        function onProvinceChange(provinceName) {
+            const ampSelect = document.getElementById('work_amphure');
+            const tamSelect = document.getElementById('work_tambon');
+            
+            ampSelect.innerHTML = '<option value="" disabled selected>เลือกอำเภอ...</option>';
+            tamSelect.innerHTML = '<option value="" disabled selected>เลือกตำบล...</option>';
+            
+            if (provinceName === "อื่นๆ (ระบุในชื่อที่ทำงาน)" || !THAI_GEOGRAPHY[provinceName]) {
+                ampSelect.disabled = true;
+                tamSelect.disabled = true;
+                return;
+            }
+
+            ampSelect.disabled = false;
+            tamSelect.disabled = true;
+
+            const districts = THAI_GEOGRAPHY[provinceName];
+            const sortedDistricts = Object.keys(districts).sort((a, b) => a.localeCompare(b, 'th'));
+            
+            sortedDistricts.forEach(dist => {
+                const opt = document.createElement('option');
+                opt.value = dist;
+                opt.text = dist;
+                ampSelect.add(opt);
+            });
+        }
+
+        // เมื่อสลับอำเภอ
+        function onAmphureChange(districtName) {
+            const provName = document.getElementById('work_province').value;
+            const tamSelect = document.getElementById('work_tambon');
+            
+            tamSelect.innerHTML = '<option value="" disabled selected>เลือกตำบล...</option>';
+            
+            if (!THAI_GEOGRAPHY[provName] || !THAI_GEOGRAPHY[provName][districtName]) {
+                tamSelect.disabled = true;
+                return;
+            }
+
+            tamSelect.disabled = false;
+            
+            const subdistricts = THAI_GEOGRAPHY[provName][districtName];
+            const sortedSubdistricts = subdistricts.sort((a, b) => a.localeCompare(b, 'th'));
+            
+            sortedSubdistricts.forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub;
+                opt.text = sub;
+                tamSelect.add(opt);
+            });
+        }
+
+        // สลับฟิลด์ช่องอื่นๆ
+        function toggleOtherInput(selectElement, wrapperId) {
+            const wrapper = document.getElementById(wrapperId);
+            if (selectElement.value === "อื่นๆ") {
+                wrapper.classList.remove('hidden');
+                wrapper.querySelector('input').required = true;
+            } else {
+                wrapper.classList.add('hidden');
+                wrapper.querySelector('input').required = false;
+                wrapper.querySelector('input').value = "";
+            }
+        }
+
+        // สลับแสดงข้อมูลสำหรับวิชาชีพ
+        function toggleLicenseInputs(licenseType) {
+            const nursingWrapper = document.getElementById('nursing_wrapper');
+            const pubhealthWrapper = document.getElementById('pubhealth_wrapper');
+            
+            nursingWrapper.classList.add('hidden');
+            pubhealthWrapper.classList.add('hidden');
+            
+            document.getElementById('nursing_member_id').required = false;
+            document.getElementById('nursing_license_id').required = false;
+            document.getElementById('pubhealth_license_id').required = false;
+            document.getElementById('pubhealth_member_id').required = false;
+
+            if (licenseType === "ผู้ประกอบวิชาชีพสภาการพยาบาล") {
+                nursingWrapper.classList.remove('hidden');
+                document.getElementById('nursing_member_id').required = true;
+                document.getElementById('nursing_license_id').required = true;
+            } else if (licenseType === "ผู้ประกอบวิชาชีพสาธารณสุขชุมชน") {
+                pubhealthWrapper.classList.remove('hidden');
+                document.getElementById('pubhealth_license_id').required = true;
+                document.getElementById('pubhealth_member_id').required = true;
+            }
+        }
+
+        // แสดงฟิลด์เพิ่มเติมในกรณีที่เกษียณอายุราชการ
+        function toggleRetireSection(status) {
+            const group = document.getElementById('retire_fields_group');
+            const fields = ['retire_name', 'retire_position', 'retire_workplace'];
+            
+            if (status === "เกษียณราชการ") {
+                group.classList.remove('hidden');
+                fields.forEach(id => document.getElementById(id).required = true);
+            } else {
+                group.classList.add('hidden');
+                fields.forEach(id => {
+                    document.getElementById(id).required = false;
+                    document.getElementById(id).value = "";
+                });
+                retireImagesData = [];
+                document.getElementById('retire_images_preview').innerHTML = "";
+            }
+        }
+
+        // ฟังก์ชันดึงข้อมูลผู้สมัครจากระบบ Google Sheets มาพรีวิว
+        async function fetchRegList() {
+            const tbody = document.getElementById('regListTableBody');
+            const totalCountEl = document.getElementById('totalRegCount');
+            const webAppUrl = links.reg_form; // ตัวเชื่อมต่อ GET ทางตรง
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9" class="py-12 text-center text-gray-400">
+                        <i class="fa-solid fa-circle-notch animate-spin text-3xl mb-2 text-[#1e5a3e]"></i>
+                        <p class="text-sm">กำลังสืบค้นข้อมูลผู้ลงทะเบียนวิชาการจากคลังสมาคม...</p>
+                    </td>
+                </tr>
+            `;
+
+            if (webAppUrl && webAppUrl.trim() !== "") {
+                try {
+                    const response = await fetch(webAppUrl);
+                    const data = await response.json();
+                    
+                    if (data && Array.isArray(data)) {
+                        rawRegList = data;
+                        renderRegListTable(rawRegList);
+                        return;
+                    }
+                } catch (err) {
+                    console.error("Fetch Google Sheet failed, loading MockData instead", err);
+                }
+            }
+
+            // ในกรณีไม่ได้เชื่อมโยง Google Sheet แอดมิน: ให้ระบบใช้ MockData สวยงามสำหรับการรีวิว
+            loadDemoRegList();
+        }
+
+        // ชุดข้อมูลจำลองความสวยงาม (Mock Data)
+        function loadDemoRegList() {
+            rawRegList = [
+                { health_zone: "เขตสุขภาพที่ 6", province: "ฉะเชิงเทรา", prefix: "นาย", firstName: "สมศักดิ์", lastName: "วิทยาชัย", position: "นักวิชาการสาธารณสุข", level: "ชำนาญการพิเศษ", workplace_name: "สสจ.ฉะเชิงเทรา", souvenir_size: "XL", payment_status: "ตรวจสอบแล้ว" },
+                { health_zone: "เขตสุขภาพที่ 6", province: "ชลบุรี", prefix: "นางสาว", firstName: "พรทิพย์", lastName: "สุวรรณรัตน์", position: "พยาบาลวิชาชีพ", level: "ชำนาญการ", workplace_name: "รพ.บางละมุง", souvenir_size: "M", payment_status: "ตรวจสอบแล้ว" },
+                { health_zone: "เขตสุขภาพที่ 3", province: "เชียงใหม่", prefix: "นาย", firstName: "อนันต์", lastName: "ปรีชาชาญ", position: "เจ้าพนักงานสาธารณสุข", level: "อาวุโส", workplace_name: "รพ.สต.บ้านปง", souvenir_size: "L", payment_status: "รอการตรวจสอบ" },
+                { health_zone: "เขตสุขภาพที่ 10", province: "ขอนแก่น", prefix: "นางสาว", firstName: "จริยา", lastName: "สมบูรณ์ดี", position: "นักวิชาการสาธารณสุข", level: "ปฏิบัติการ", workplace_name: "สสอ.เมืองขอนแก่น", souvenir_size: "S", payment_status: "ยังไม่ชำระเงิน" }
+            ];
+            
+            // อ่านค่าจาก LocalStorage สำรองเพิ่มเติม (ข้อมูลที่ลงทะเบียนเล่นๆ บนเว็บนี้)
+            const backup = localStorage.getItem('temp_reg_list');
+            if (backup) {
+                const backupData = JSON.parse(backup);
+                backupData.forEach(item => {
+                    rawRegList.unshift({
+                        health_zone: item.health_zone || "เขตสุขภาพที่ 6",
+                        province: item.work_province || "ฉะเชิงเทรา",
+                        prefix: item.prefix || "",
+                        firstName: item.firstName || "ผู้สมัคร",
+                        lastName: item.lastName || "จำลอง",
+                        position: item.position || "นักวิชาการสาธารณสุข",
+                        level: item.level || "ชำนาญการ",
+                        workplace_name: item.workplace_name || "หน่วยงานต้นสังกัด",
+                        souvenir_size: item.souvenir_size || "L",
+                        payment_status: "รอการตรวจสอบ"
+                    });
+                });
+            }
+
+            renderRegListTable(rawRegList);
+        }
+
+        // จัดการ Render แถวตารางผู้สมัคร
+        function renderRegListTable(list) {
+            const tbody = document.getElementById('regListTableBody');
+            const totalCountEl = document.getElementById('totalRegCount');
+            
+            totalCountEl.innerText = `${list.length} คน`;
+            tbody.innerHTML = "";
+
+            if (list.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="py-12 text-center text-gray-400 font-bold">
+                            <i class="fa-solid fa-folder-open text-4xl mb-2 text-gray-300"></i>
+                            <p>ไม่พบประวัติข้อมูลผู้ลงทะเบียนที่ตรงตามเงื่อนไข</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            list.forEach((item, index) => {
+                // สร้าง Badge สถานะชำระเงิน
+                let statusBadge = "";
+                if (item.payment_status === "ตรวจสอบแล้ว" || item.payment_status === "ชำระเงินเรียบร้อย") {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full border border-emerald-200"><i class="fa-solid fa-circle-check mr-0.5"></i> ตรวจสอบแล้ว</span>`;
+                } else if (item.payment_status === "ยังไม่ชำระเงิน") {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 text-xs font-extrabold px-3 py-1 rounded-full border border-rose-200"><i class="fa-solid fa-circle-exclamation mr-0.5"></i> ยังไม่โอนเงิน</span>`;
+                } else {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs font-extrabold px-3 py-1 rounded-full border border-amber-200"><i class="fa-solid fa-clock-rotate-left mr-0.5"></i> รอตรวจสอบ</span>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-emerald-50/30 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-4 px-6 text-center font-bold text-gray-400">${index + 1}</td>
+                    <td class="py-4 px-4 font-bold text-[#1e5a3e]">${item.health_zone}</td>
+                    <td class="py-4 px-4 font-semibold">${item.province}</td>
+                    <td class="py-4 px-4 font-bold text-slate-800">${item.prefix}${item.firstName} ${item.lastName}</td>
+                    <td class="py-4 px-4 text-xs font-semibold text-gray-600">${item.position}</td>
+                    <td class="py-4 px-4 text-xs">${item.level}</td>
+                    <td class="py-4 px-4 text-xs font-medium">${item.workplace_name}</td>
+                    <td class="py-4 px-4 text-center font-black text-slate-700">${item.souvenir_size}</td>
+                    <td class="py-4 px-6 text-center">${statusBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ระบบกรองและค้นหารายการอัจฉริยะ (Real-time Filter)
+        function filterRegListTable() {
+            const query = document.getElementById('searchBar').value.toLowerCase().trim();
+            const hzFilter = document.getElementById('filterHealthZone').value;
+            const payFilter = document.getElementById('filterPaymentStatus').value;
+
+            const filtered = rawRegList.filter(item => {
+                // เช็คค้นหาอักษร
+                const textMatch = 
+                    item.firstName.toLowerCase().includes(query) || 
+                    item.lastName.toLowerCase().includes(query) || 
+                    item.province.toLowerCase().includes(query) || 
+                    item.workplace_name.toLowerCase().includes(query) ||
+                    item.position.toLowerCase().includes(query);
+
+                // เช็คฟิลเตอร์เขตสุขภาพ
+                const hzMatch = !hzFilter || item.health_zone === hzFilter;
+
+                // เช็คฟิลเตอร์สถานะเงิน
+                let payMatch = true;
+                if (payFilter) {
+                    if (payFilter === "ตรวจสอบแล้ว") {
+                        payMatch = item.payment_status === "ตรวจสอบแล้ว" || item.payment_status === "ชำระเงินเรียบร้อย";
+                    } else if (payFilter === "ยังไม่ชำระเงิน") {
+                        payMatch = item.payment_status === "ยังไม่ชำระเงิน";
+                    } else {
+                        payMatch = item.payment_status === "รอการตรวจสอบ" || !item.payment_status;
+                    }
+                }
+
+                return textMatch && hzMatch && payMatch;
+            });
+
+            renderRegListTable(filtered);
+        }
+
+        // ฟังก์ชันควบคุมการเปลี่ยนสเต็ปแบบ Wizard
+        function moveStep(direction) {
+            if (direction === 1) {
+                if (!validateCurrentStep()) {
+                    return;
+                }
+            }
+
+            document.getElementById(`formStep${currentStep}`).classList.add('hidden');
+            
+            currentStep += direction;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+
+            document.getElementById(`formStep${currentStep}`).classList.remove('hidden');
+            updateStepIndicator();
+        }
+
+        function updateStepIndicator() {
+            const stepNameEl = document.getElementById('stepName');
+            const progressText = document.getElementById('stepProgressText');
+            const progressBar = document.getElementById('progressBar');
+            
+            const stepNames = [
+                "หน้า 1: ข้อมูลทั่วไป",
+                "หน้า 2: สถานที่ทำงาน",
+                "หน้า 3: ใบประกอบวิชาชีพ",
+                "หน้า 4: ของที่ระลึก (ไซส์เสื้อ)",
+                "หน้า 5: ข้อมูลผู้เกษียณราชการ",
+                "หน้า 6: หลักฐานการชำระเงิน",
+                "หน้า 7: ร่วมกลุ่ม LINE OpenChat"
+            ];
+
+            stepNameEl.innerText = stepNames[currentStep - 1];
+            const pct = Math.round((currentStep / totalSteps) * 100);
+            progressText.innerText = `${pct}%`;
+            progressBar.style.width = `${pct}%`;
+
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const btnSubmit = document.getElementById('btnSubmitForm');
+
+            if (currentStep === 1) {
+                btnPrev.setAttribute("onclick", "navigateTo('regPage')");
+                btnPrev.querySelector('span').innerText = "ย้อนกลับเมนู";
+            } else {
+                btnPrev.setAttribute("onclick", "moveStep(-1)");
+                btnPrev.querySelector('span').innerText = "ย้อนกลับ";
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.classList.add('hidden');
+                btnSubmit.classList.remove('hidden');
+            } else {
+                btnNext.classList.remove('hidden');
+                btnSubmit.classList.add('hidden');
+            }
+        }
+
+        // ตรวจเช็คข้อมูลที่จำเป็นในสเต็ปปัจจุบันก่อนจะอนุญาตให้ข้ามสเต็ป
+        function validateCurrentStep() {
+            const currentDiv = document.getElementById(`formStep${currentStep}`);
+            const inputs = currentDiv.querySelectorAll('input[required], select[required]');
+            
+            for (let input of inputs) {
+                if (!input.value || input.value.trim() === "") {
+                    alert("กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วนก่อนข้ามหน้า");
+                    input.focus();
+                    return false;
+                }
+                
+                if (input.id === "id_card" && input.value.length !== 13) {
+                    alert("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+                    input.focus();
+                    return false;
+                }
+
+                if (input.id === "phone" && (input.value.length < 9 || input.value.length > 10)) {
+                    alert("กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง (9-10 หลัก)");
+                    input.focus();
+                    return false;
+                }
+            }
+
+            if (currentStep === 5 && document.getElementById('retire_status').value === "เกษียณราชการ") {
+                if (retireImagesData.length === 0) {
+                    alert("กรุณาอัปโหลดรูปภาพผู้เกษียณราชการอย่างน้อย 1 รูป");
+                    return false;
+                }
+            }
+
+            // ตรวจสอบความถูกต้องหน้าข้อมูลสลิปก่อนเข้าขั้นตอนสุดท้าย (LINE Openchat)
+            if (currentStep === 6) {
+                if (!receiptImageData) {
+                    alert("กรุณาอัปโหลดรูปสลิปหลักฐานการโอนเงินเพื่อตรวจสอบสิทธิ์");
+                    return false;
+                }
+                const payDate = document.getElementById('payment_date').value;
+                const payTime = document.getElementById('payment_time').value;
+                if (!payDate || !payTime) {
+                    alert("กรุณากรอกข้อมูลวันที่และเวลาการชำระเงินให้ครบถ้วนก่อนเปลี่ยนหน้า");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // บีบอัดภาพเพื่อลดขนาดพิกเซลและเปลี่ยนเป็น Base64
+        function compressAndConvert(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    const max_size = 600;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    callback(dataUrl);
+                };
+            };
+        }
+
+        // รองรับการรับไฟล์ VTR รูปผู้เกษียณราชการได้พร้อมกันหลายไฟล์
+        function handleMultipleRetireImages(files) {
+            if (files.length === 0) return;
+            const previewContainer = document.getElementById('retire_images_preview');
+            
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    alert("รองรับเฉพาะประเภทไฟล์ภาพสำหรับประกอบสไลด์ VTR เท่านั้น!");
+                    return;
+                }
+
+                compressAndConvert(file, (base64String) => {
+                    retireImagesData.push(base64String);
+                    
+                    const index = retireImagesData.length - 1;
+                    const block = document.createElement('div');
+                    block.className = "relative border rounded-xl overflow-hidden shadow";
+                    block.id = `retire-preview-${index}`;
+                    block.innerHTML = `
+                        <img src="${base64String}" class="w-full h-24 object-cover">
+                        <button type="button" onclick="removeRetireImage(${index})" class="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full text-[10px] shadow hover:bg-rose-700">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    `;
+                    previewContainer.appendChild(block);
+                });
+            });
+        }
+
+        function removeRetireImage(index) {
+            retireImagesData.splice(index, 1);
+            const previewContainer = document.getElementById('retire_images_preview');
+            previewContainer.innerHTML = "";
+            retireImagesData.forEach((base64, idx) => {
+                const block = document.createElement('div');
+                block.className = "relative border rounded-xl overflow-hidden shadow";
+                block.id = `retire-preview-${idx}`;
+                block.innerHTML = `
+                    <img src="${base64}" class="w-full h-24 object-cover">
+                    <button type="button" onclick="removeRetireImage(${idx})" class="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full text-[10px] shadow hover:bg-rose-700">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                previewContainer.appendChild(block);
+            });
+        }
+
+        // จัดการสลิปหลักฐานการชำระเงิน
+        function handleReceiptImage(file) {
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert("กรุณาเลือกไฟล์ภาพสลิปที่ถูกต้อง!");
+                return;
+            }
+
+            compressAndConvert(file, (base64String) => {
+                receiptImageData = base64String;
+                document.getElementById('receipt_preview_img').src = base64String;
+                document.getElementById('receipt_preview_container').classList.remove('hidden');
+            });
+        }
+
+        function removeReceiptImage() {
+            receiptImageData = "";
+            document.getElementById('receipt_preview_img').src = "#";
+            document.getElementById('receipt_preview_container').classList.add('hidden');
+            document.getElementById('payment_receipt_input').value = "";
+        }
+
+        // คัดลอกเลขที่บัญชีโอนเงินเข้า Clipboard
+        function copyBankAccount() {
+            const tempInput = document.createElement("input");
+            tempInput.value = "2030734772";
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                const alertToast = document.createElement("div");
+                alertToast.className = "fixed top-10 left-1/2 -translate-x-1/2 bg-[#1e5a3e] text-white py-2.5 px-6 rounded-full font-bold shadow-2xl z-[150] transition-opacity duration-300";
+                alertToast.innerText = "คัดลอกเลขที่บัญชี 203-0-73477-2 สำเร็จ!";
+                document.body.appendChild(alertToast);
+                setTimeout(() => {
+                    alertToast.style.opacity = '0';
+                    setTimeout(() => alertToast.remove(), 300);
+                }, 2000);
+            } catch (err) {
+                console.error("Copy failed", err);
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        // เปลี่ยนเส้นทางการเปลี่ยนหน้าเว็บแบบ SPA
+        function navigateTo(pageId) {
+            document.getElementById('homePage').classList.add('hidden-page');
+            document.getElementById('regPage').classList.add('hidden-page');
+            document.getElementById('formPage').classList.add('hidden-page');
+            document.getElementById('listPage').classList.add('hidden-page');
+            
+            const target = document.getElementById(pageId);
+            target.classList.remove('hidden-page');
+
+            if (pageId === 'formPage') {
+                currentStep = 1;
+                updateStepIndicator();
+            } else if (pageId === 'listPage') {
+                fetchRegList(); // ดึงข้อมูลอัปเดตทุกครั้งเมื่อกดสลับหน้าตรวจสอบรายชื่อ
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleExternalLink(key) {
+            const targetUrl = links[key];
+            if(targetUrl && targetUrl.trim() !== "") {
+                window.open(targetUrl, '_parent');
+            } else {
+                alert("ลิงก์หน้าย่อยนี้ยังไม่ได้เปิดตั้งค่า (คลิกปุ่มฟันเฟืองด้านล่างซ้ายเพื่อตั้งลิงก์เชื่อมต่อ)");
+            }
+        }
+
+        // บันทึกและส่งชุดข้อมูลข้อมูลลงทะเบียนไปยัง Google Sheets
+        function submitRegistration(event) {
+            event.preventDefault();
+
+            const btnSubmit = document.getElementById('btnSubmitForm');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> <span>กำลังนำส่งหลักฐานและข้อมูล...</span>`;
+
+            const getSelectVal = (id, otherWrapperId, otherInputId) => {
+                const sel = document.getElementById(id);
+                if (sel.value === "อื่นๆ") {
+                    return "อื่นๆ: " + document.getElementById(otherInputId).value.trim();
+                }
+                return sel.value;
+            };
+
+            let nursingVal = "ไม่ประสงค์บันทึก";
+            if (document.getElementById('license_type').value === "ผู้ประกอบวิชาชีพสภาการพยาบาล") {
+                nursingVal = "เลขสมาชิก: " + document.getElementById('nursing_member_id').value.trim() + " / เลขใบอนุญาต: " + document.getElementById('nursing_license_id').value.trim();
+            }
+
+            let pubHealthVal = "ไม่ประสงค์บันทึก";
+            if (document.getElementById('license_type').value === "ผู้ประกอบวิชาชีพสาธารณสุขชุมชน") {
+                pubHealthVal = "เลขใบอนุญาต: " + document.getElementById('pubhealth_license_id').value.trim() + " / เลขสมาชิก: " + document.getElementById('pubhealth_member_id').value.trim();
+            }
+
+            // รวบรวมข้อมูลทั้งหมดเพื่อส่งไปยัง Google Apps Script
+            const formData = {
+                organization_type: getSelectVal('organization_type', 'org_other_wrapper', 'org_other'),
+                id_card: document.getElementById('id_card').value.trim(),
+                gender: document.getElementById('gender').value,
+                prefix: document.getElementById('prefix').value,
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                position: getSelectVal('position', 'pos_other_wrapper', 'pos_other'),
+                level: getSelectVal('level', 'lvl_other_wrapper', 'lvl_other'),
+                phone: document.getElementById('phone').value.trim(),
+                line_id: document.getElementById('line_id').value.trim(),
+                dietary: getSelectVal('dietary', 'diet_other_wrapper', 'diet_other'),
+                allergy: document.getElementById('allergy').value.trim() || 'ไม่มี',
+                workplace_name: document.getElementById('workplace_name').value.trim(),
+                work_province: document.getElementById('work_province').value,
+                work_amphure: document.getElementById('work_amphure').value || 'ไม่ได้ระบุ',
+                work_tambon: document.getElementById('work_tambon').value || 'ไม่ได้ระบุ',
+                health_zone: document.getElementById('health_zone').value,
+                license_type: document.getElementById('license_type').value,
+                nursing_license: nursingVal,
+                public_health_license: pubHealthVal,
+                souvenir_size: document.getElementById('souvenir_size').value,
+                retire_status: document.getElementById('retire_status').value,
+                retire_name: document.getElementById('retire_name').value.trim() || 'ไม่มี',
+                retire_position: document.getElementById('retire_position').value.trim() || 'ไม่มี',
+                retire_workplace: document.getElementById('retire_workplace').value.trim() || 'ไม่มี',
+                retire_images: retireImagesData.join(" || "),
+                payment_receipt: receiptImageData,
+                payment_date: document.getElementById('payment_date').value,
+                payment_time: document.getElementById('payment_time').value
+            };
+
+            const webAppUrl = links.reg_form; 
+
+            if (webAppUrl && webAppUrl.trim() !== "") {
+                fetch(webAppUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    showSuccess();
+                })
+                .catch(error => {
+                    console.error("Error submitting form:", error);
+                    backupLocal(formData);
+                    showSuccess();
+                });
+            } else {
+                setTimeout(() => {
+                    backupLocal(formData);
+                    showSuccess();
+                }, 1500);
+            }
+        }
+
+        function backupLocal(data) {
+            let localList = JSON.parse(localStorage.getItem('temp_reg_list') || '[]');
+            localList.push({timestamp: new Date(), ...data});
+            localStorage.setItem('temp_reg_list', JSON.stringify(localList));
+        }
+
+        // นำทางสู่ฟอร์มและโมดอลเมื่อสำเร็จ
+        function showSuccess() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.firstElementChild.classList.remove('scale-95');
+                modal.firstElementChild.classList.add('scale-100');
+            }, 50);
+
+            document.getElementById('regForm').reset();
+            removeReceiptImage();
+            retireImagesData = [];
+            document.getElementById('retire_images_preview').innerHTML = "";
+            document.getElementById('org_other_wrapper').classList.add('hidden');
+            document.getElementById('pos_other_wrapper').classList.add('hidden');
+            document.getElementById('lvl_other_wrapper').classList.add('hidden');
+            document.getElementById('diet_other_wrapper').classList.add('hidden');
+            document.getElementById('retire_fields_group').classList.add('hidden');
+            document.getElementById('nursing_wrapper').classList.add('hidden');
+            document.getElementById('pubhealth_wrapper').classList.add('hidden');
+            
+            const btnSubmit = document.getElementById('btnSubmitForm');
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = `<i class="fa-solid tokens fa-cloud-arrow-up"></i> <span>ส่งข้อมูลลงทะเบียนเข้าระบบ</span>`;
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                navigateTo('regPage');
+            }, 150);
+        }
+
+        // เปิดปิดโหมดตั้งค่าระบบ
+        function toggleConfig() {
+            const modal = document.getElementById('configModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function saveConfig() {
+            Object.keys(links).forEach(key => {
+                const input = document.getElementById('url_' + key);
+                if(input) links[key] = input.value;
+            });
+            localStorage.setItem('ph_site_links_v3', JSON.stringify(links));
+            alert("บันทึกข้อมูลและช่องทางเชื่อมต่อไปยังฐานข้อมูลชีตสำเร็จ!");
+            toggleConfig();
+            fetchRegList(); // รีเฟรชดึงข้อมูลอีกครั้งเมื่อบันทึกการตั้งค่า
+        }
+    </script>
+</body>
+</html>
